@@ -35,8 +35,8 @@ Singleton {
         Quickshell.execDetached(["bash", "-c", Config.options.apps.update]);
     }
     function openSystemSettingsAndRunUpdate() {
+        // Just open the settings tab - user clicks update button in the UI
         openSystemSettings();
-        runSystemUpdate();
     }
     function refresh(backgroundCheck = false) {
         if (!available) return;

@@ -178,7 +178,7 @@ Singleton {
                 property string networkEthernet: "kcmshell6 kcm_networkmanagement"
                 property string taskManager: "plasma-systemmonitor --page-name Processes"
                 property string terminal: "kitty -1" // This is only for shell actions
-                property string update: "kitty -1 --hold=yes fish -i -c 'pkexec pacman -Syu'"
+                property string update: "kitty --class hidden_update -e sh -c 'pkexec /usr/bin/pacman -Syu --noconfirm'"
                 property string volumeMixer: `~/.config/hypr/ii/scripts/launch_first_available.sh "pavucontrol" "pavucontrol-qt"`
             }
 

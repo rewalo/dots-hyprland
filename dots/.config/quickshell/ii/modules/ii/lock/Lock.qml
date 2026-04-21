@@ -30,6 +30,9 @@ LockScreen {
 
                 batch += "dispatch focusmonitor " + screenName + "; "
 
+                // Shuffle left the monitor on a temp workspace (2147483647 - id). With a
+                // special open we must restore the underlying desktop first, then reopen
+                // the special; togglespecial alone leaves the regular ws stuck on the temp id.
                 if (saved.special) {
                     if (saved.id !== undefined) {
                         batch += "dispatch workspace " + saved.id + "; "
@@ -85,6 +88,8 @@ LockScreen {
             var wsId = Math.max(1, mData.activeWorkspace.id ?? 1)
             var wsName = mData.activeWorkspace.name ?? ""
 
+            // While a special is open, activeWorkspace is still the underlying desktop;
+            // the overlay is in specialWorkspace (see bar/ActiveWindow.qml).
             var special = null
             var sw = mData.specialWorkspace
             var swId = sw?.id ?? 0

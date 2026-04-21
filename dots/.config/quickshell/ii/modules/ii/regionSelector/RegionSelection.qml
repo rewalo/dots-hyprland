@@ -64,10 +64,16 @@ PanelWindow {
 
     // Screen & interaction vars
     readonly property HyprlandMonitor hyprlandMonitor: Hyprland.monitorFor(screen)
+    readonly property var monitorData: HyprlandData.monitorDataFor(hyprlandMonitor)
+    readonly property var specialWorkspace: monitorData?.specialWorkspace ?? null
+    readonly property bool specialWorkspaceOpen: (specialWorkspace?.id ?? 0) < 0 && (specialWorkspace?.name ?? "") !== ""
+    readonly property var effectiveActiveWorkspace: specialWorkspaceOpen
+        ? specialWorkspace
+        : hyprlandMonitor.activeWorkspace
     readonly property real monitorScale: hyprlandMonitor.scale
     readonly property real monitorOffsetX: hyprlandMonitor.x
     readonly property real monitorOffsetY: hyprlandMonitor.y
-    property int activeWorkspaceId: hyprlandMonitor.activeWorkspace?.id ?? 0
+    property int activeWorkspaceId: effectiveActiveWorkspace?.id ?? 0
     property string screenshotPath: `${root.screenshotDir}/image-${screen.name}`
     property real dragStartX: 0
     property real dragStartY: 0
